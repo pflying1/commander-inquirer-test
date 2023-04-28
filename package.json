@@ -1,0 +1,24 @@
+{
+  "name": "commander-inquirer-test",
+  "version": "1.0.0",
+  "description": "1. npm에서 지원하는 commander.js, inquirer.js 모듈을 설치할 것\r 2. cli환경에서 입력처리가 올바르게 작동하는지 확인할 것\r 3. CRUD, 주요기능과 상호작용(interaction)하는지 확인할 것",
+  "main": "commander.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pflying1/commander-inquirer-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pflying1/commander-inquirer-test/issues"
+  },
+  "homepage": "https://github.com/pflying1/commander-inquirer-test#readme",
+  "dependencies": {
+    "commander": "^10.0.1",
+    "inquirer": "^9.2.0"
+  }
+}
