@@ -21,7 +21,14 @@ program
 
   .parse(process.argv);
 
-if (!program.fileName || !program.titleContent) {
+if (
+  !program.fileName ||
+  !program.titleContent ||
+  !program.tagName ||
+  !program.attriName ||
+  !program.attriValue ||
+  !program.pContent
+) {
   const questions = [];
 
   //questions 배열안에 적혀질 내용 질문 부분
@@ -41,15 +48,52 @@ if (!program.fileName || !program.titleContent) {
     });
   }
 
-  //file name과 titleContent를 하나의 객체로 묶어줌
+  if (!program.tagName) {
+    questions.push({
+      type: "input",
+      name: "tagName",
+      message: "body 자식의 태그 이름 : ",
+    });
+  }
+
+  if (!program.attriName) {
+    questions.push({
+      type: "input",
+      name: "attriName",
+      message: "위에서 입력한 태그 이름의 속성 이름 : ",
+    });
+  }
+
+  if (!program.attriValue) {
+    questions.push({
+      type: "input",
+      name: "attriValue",
+      message: "위에서 입력한 태그 이름의 속성 값 : ",
+    });
+  }
+
+  if (!program.pContent) {
+    questions.push({
+      type: "input",
+      name: "pContent",
+      message: "위에서 입력한 태그의 자식인 p태그의 내용 : ",
+    });
+  }
+
+  //file name과 titleContent등등 하나의 객체로 묶어줌
   //assign 은 객체의 속성들을 복사함
   //opts는 프로퍼티를 가져옴
   inquirer.prompt(questions).then((answers) => {
-    const { fileName, titleContent } = Object.assign(program.opts(), answers);
+    const { fileName, titleContent, tagName, attriName, attriValue, pContent } =
+      Object.assign(program.opts(), answers);
 
     console.log(`HTML 파일 이름 :  ${fileName}.`);
     console.log(`title 내용 :  ${titleContent}.`);
-    console.log(fileName);
+    console.log(`tag 이름 :  ${tagName}.`);
+    console.log(`${fileName}의 속성 이름 :  ${attriName}.`);
+    console.log(`${fileName}의 속성 값 :  ${attriValue}.`);
+    console.log(`p태그의 속성 값 :  ${pContent}.`);
+    console.log(questions);
 
     //파일 내용
     const html = `<!DOCTYPE html>
@@ -58,6 +102,9 @@ if (!program.fileName || !program.titleContent) {
       <title>${titleContent}</title>
     </head>
     <body>
+      <${tagName} ${attriName}:${attriValue}>
+        <p>${pContent}</p>
+      </${tagName}>
     </body>
     </html>
     `;
@@ -72,8 +119,13 @@ if (!program.fileName || !program.titleContent) {
     });
   });
 } else {
-  const { fileName, titleContent } = program;
+  const { fileName, titleContent, tagName, attriName, attriValue, pContent } =
+    program;
 
   console.log(`HTML 파일 이름 :  ${fileName}.`);
   console.log(`title 내용 :  ${titleContent}.`);
+  console.log(`tag 이름 :  ${tagName}.`);
+  console.log(`${fileName}의 속성 이름 :  ${attriName}.`);
+  console.log(`${fileName}의 속성 값 :  ${attriValue}.`);
+  console.log(`p태그의 속성 값 :  ${pContent}.`);
 }
