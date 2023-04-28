@@ -48,7 +48,7 @@ if (!program.filename || !program.titlecontent) {
   </body>
   </html>
   `;
-  fs.writeFileSync(filename, html, (err) => {
+  fs.writeFileSync(`${filename}.html`, html, (err) => {
     if (err) {
       console.log("에러 발생");
     } else {
