@@ -23,7 +23,7 @@ if (!program.filename || !program.titlecontent) {
     questions.push({
       type: "input",
       name: "filename",
-      message: "HTML 파일 이름",
+      message: "HTML 파일 이름 : ",
     });
   }
 
@@ -31,37 +31,37 @@ if (!program.filename || !program.titlecontent) {
     questions.push({
       type: "input",
       name: "titlecontent",
-      message: "타이틀에 들어간 내용",
+      message: "타이틀에 들어갈 내용 : ",
     });
   }
-
-  //파일 생성 구문
-  const filename = questions.name;
-  const titlecontent = questions.titlecontent;
-
-  const html = `<!DOCTYPE html>
-  <html>
-  <head>
-    <title>${titlecontent}</title>
-  </head>
-  <body>
-  </body>
-  </html>
-  `;
-  fs.writeFileSync(`${filename}.html`, html, (err) => {
-    if (err) {
-      console.log("에러 발생");
-    } else {
-      console.log("파일이 생성되었습니다.");
-    }
-  });
 
   inquirer.prompt(questions).then((answers) => {
     const { filename, titlecontent } = Object.assign(program.opts(), answers);
 
     console.log(`HTML 파일 이름 :  ${filename}.`);
     console.log(`title 내용 :  ${titlecontent}.`);
-    console.log(questions);
+    console.log(filename);
+    console.log(titlecontent);
+
+    //파일 생성 구문
+
+    const html = `<!DOCTYPE html>
+    <html>
+    <head>
+      <title>${titlecontent}</title>
+    </head>
+    <body>
+    </body>
+    </html>
+    `;
+
+    fs.writeFileSync(`./result/${filename}.html`, html, (err) => {
+      if (err) {
+        console.log("에러 발생");
+      } else {
+        console.log("파일이 생성되었습니다.");
+      }
+    });
   });
 } else {
   const { filename, titlecontent } = program;
