@@ -63,7 +63,7 @@ program
       console.log(`${fileName}의 속성 값 :  ${attriValue}.`);
       console.log(`p태그의 속성 값 :  ${pContent}.`);
     } else {
-      console.log("commander는 작성 하지 않습니다.");
+      console.log("commander로는 작성 하지 않습니다.");
     }
   })
   .parse(process.argv);
@@ -165,34 +165,4 @@ if (
       }
     });
   });
-} else {
-  // const { fileName, titleContent, tagName, attriName, attriValue, pContent } =
-  //   program;
-  // //파일 내용
-  // const html = `<!DOCTYPE html>
-  //         <html>
-  //         <head>
-  //           <title>${titleContent}</title>
-  //         </head>
-  //         <body>
-  //           <${tagName} ${attriName}:${attriValue}>
-  //             <p>${pContent}</p>
-  //           </${tagName}>
-  //         </body>
-  //         </html>
-  //         `;
-  // //파일 생성, 경로
-  // fs.writeFileSync(`./result/${fileName}.html`, html, (err) => {
-  //   if (err) {
-  //     console.log("에러 발생");
-  //   } else {
-  //     console.log("파일이 생성되었습니다.");
-  //   }
-  // });
-  // console.log(`HTML 파일 이름 :  ${fileName}.`);
-  // console.log(`title 내용 :  ${titleContent}.`);
-  // console.log(`tag 이름 :  ${tagName}.`);
-  // console.log(`${fileName}의 속성 이름 :  ${attriName}.`);
-  // console.log(`${fileName}의 속성 값 :  ${attriValue}.`);
-  // console.log(`p태그의 속성 값 :  ${pContent}.`);
 }
