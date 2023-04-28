@@ -11,14 +11,26 @@ import fs from "fs";
  * 5. <p>태그 안의 내용
  *
  */
+program.version("0.0.1", "-v, --vision").usage("[option]");
+
 program
   .option("-f, --fileName <fileName>", "파일 이름")
   .option("-t, --titleContent <titleContent>", "타이틀 내용")
   .option("-ta, --tagName <tagName>", "태그 이름")
-  .option("-attriName, --attriName <attriName>", "속성 이름")
-  .option("-attriValue, --attriValue <attriValue>", "속성 값")
-  .option("-pContent, --pContent <pContent>", "p태그 내용")
-
+  .option("-atn, --attriName <attriName>", "속성 이름")
+  .option("-atv, --attriValue <attriValue>", "속성 값")
+  .option("-pc, --pContent <pContent>", "p태그 내용")
+  .action((type, options) => {
+    console.log(
+      type,
+      options.fileName,
+      options.titleContent,
+      options.tagName,
+      options.attriName,
+      options.attriValue,
+      options.pContent
+    );
+  })
   .parse(process.argv);
 
 if (
@@ -121,7 +133,28 @@ if (
 } else {
   const { fileName, titleContent, tagName, attriName, attriValue, pContent } =
     program;
+  //파일 내용
+  const html = `<!DOCTYPE html>
+        <html>
+        <head>
+          <title>${titleContent}</title>
+        </head>
+        <body>
+          <${tagName} ${attriName}:${attriValue}>
+            <p>${pContent}</p>
+          </${tagName}>
+        </body>
+        </html>
+        `;
 
+  //파일 생성, 경로
+  fs.writeFileSync(`./result/${fileName}.html`, html, (err) => {
+    if (err) {
+      console.log("에러 발생");
+    } else {
+      console.log("파일이 생성되었습니다.");
+    }
+  });
   console.log(`HTML 파일 이름 :  ${fileName}.`);
   console.log(`title 내용 :  ${titleContent}.`);
   console.log(`tag 이름 :  ${tagName}.`);
