@@ -12,50 +12,58 @@ import fs from "fs";
  *
  */
 program
-  .option("-f, --filename <filename>", "파일 이름")
-  .option("-t, --titlecontent <titlecontent>", "타이틀 내용")
+  .option("-f, --fileName <fileName>", "파일 이름")
+  .option("-t, --titleContent <titleContent>", "타이틀 내용")
+  .option("-ta, --tagName <tagName>", "태그 이름")
+  .option("-attriName, --attriName <attriName>", "속성 이름")
+  .option("-attriValue, --attriValue <attriValue>", "속성 값")
+  .option("-pContent, --pContent <pContent>", "p태그 내용")
+
   .parse(process.argv);
 
-if (!program.filename || !program.titlecontent) {
+if (!program.fileName || !program.titleContent) {
   const questions = [];
 
-  if (!program.filename) {
+  //questions 배열안에 적혀질 내용 질문 부분
+  if (!program.fileName) {
     questions.push({
       type: "input",
-      name: "filename",
+      name: "fileName",
       message: "HTML 파일 이름 : ",
     });
   }
 
-  if (!program.titlecontent) {
+  if (!program.titleContent) {
     questions.push({
       type: "input",
-      name: "titlecontent",
+      name: "titleContent",
       message: "타이틀에 들어갈 내용 : ",
     });
   }
 
+  //file name과 titleContent를 하나의 객체로 묶어줌
+  //assign 은 객체의 속성들을 복사함
+  //opts는 프로퍼티를 가져옴
   inquirer.prompt(questions).then((answers) => {
-    const { filename, titlecontent } = Object.assign(program.opts(), answers);
+    const { fileName, titleContent } = Object.assign(program.opts(), answers);
 
-    console.log(`HTML 파일 이름 :  ${filename}.`);
-    console.log(`title 내용 :  ${titlecontent}.`);
-    console.log(filename);
-    console.log(titlecontent);
+    console.log(`HTML 파일 이름 :  ${fileName}.`);
+    console.log(`title 내용 :  ${titleContent}.`);
+    console.log(fileName);
 
-    //파일 생성 구문
-
+    //파일 내용
     const html = `<!DOCTYPE html>
     <html>
     <head>
-      <title>${titlecontent}</title>
+      <title>${titleContent}</title>
     </head>
     <body>
     </body>
     </html>
     `;
 
-    fs.writeFileSync(`./result/${filename}.html`, html, (err) => {
+    //파일 생성, 경로
+    fs.writeFileSync(`./result/${fileName}.html`, html, (err) => {
       if (err) {
         console.log("에러 발생");
       } else {
@@ -64,8 +72,8 @@ if (!program.filename || !program.titlecontent) {
     });
   });
 } else {
-  const { filename, titlecontent } = program;
+  const { fileName, titleContent } = program;
 
-  console.log(`HTML 파일 이름 :  ${filename}.`);
-  console.log(`title 내용 :  ${titlecontent}.`);
+  console.log(`HTML 파일 이름 :  ${fileName}.`);
+  console.log(`title 내용 :  ${titleContent}.`);
 }
